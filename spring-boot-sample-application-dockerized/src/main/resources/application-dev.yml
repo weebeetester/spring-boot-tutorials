@@ -1,0 +1,19 @@
+spring:
+  datasource: #For dev, we are using MySQL.
+    #url: jdbc:mysql://localhost:3306/example_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://db:3306/example_db?createDatabaseIfNotExist=true #to work with compose
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa: #For dev, we are using MySQL
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+
+logging:
+  level:
+    root: INFO
+    com.websystique: TRACE
+    org.springframework: WARN

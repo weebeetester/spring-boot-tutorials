@@ -1,0 +1,19 @@
+spring:
+  datasource: #For local, we are using h2
+    url: jdbc:h2:mem:localdb
+    driverClassName: org.h2.Driver
+  jpa: #For local, we are using h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    root: INFO
+    com.websystique: TRACE
+    org.springframework: WARN

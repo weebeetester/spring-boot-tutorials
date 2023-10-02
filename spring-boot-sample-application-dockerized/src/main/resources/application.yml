@@ -1,0 +1,34 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: Sample SpringBoot App
+  datasource: #For higher environments, make sure to set the right details as per your environment
+    url: jdbc:mysql://localhost:3306/example_db?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa: #For higher environments, make sure to set the right details as per your environment
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: true
+  error:
+    path: /error
+    whilelabel:
+      enabled: false
+    thymeleaf:
+      enabled: true
+      cache: false
+      prefix: classpath:/templates/
+      suffix: .html
+
+logging:
+  level:
+    root: INFO
+    com.websystique: INFO
+    org.springframework: WARN
