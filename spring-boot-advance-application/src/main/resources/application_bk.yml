@@ -1,25 +1,21 @@
-server:
-  port: 8081
-  error:
-    include-message: always
-
 spring:
   application:
     name: Sample SpringBoot App
   datasource: #For higher environments, make sure to set the right details as per your environment
-    url: jdbc:mysql://localhost:3306/example_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysql:3306/example_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa: #For higher environments, make sure to set the right details as per your environment
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: false
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     defer-datasource-initialization: true
   error:
     path: /error
-    whitelabel:
+    whilelabel:
       enabled: false
     thymeleaf:
       enabled: true

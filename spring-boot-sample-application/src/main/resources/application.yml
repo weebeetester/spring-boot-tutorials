@@ -19,7 +19,7 @@ spring:
     defer-datasource-initialization: true
   error:
     path: /error
-    whilelabel:
+    whitelabel:
       enabled: false
     thymeleaf:
       enabled: true

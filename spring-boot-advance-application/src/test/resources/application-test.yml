@@ -1,8 +1,10 @@
 spring:
-  datasource: #For local, we are using h2
-    url: jdbc:h2:mem:localdb
-    driver-class-name: org.h2.Driver
-  jpa: #For local, we are using h2
+  application:
+    name: Sample SpringBoot App
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+  jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     hibernate:

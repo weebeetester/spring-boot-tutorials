@@ -1,7 +1,5 @@
 package com.websystique;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.websystique.domain.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +9,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.client.RequestCallback;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)//This will start the server
 @ActiveProfiles("test")
-public class StudentApplicationSystemTest {
+public class SpringBootSampleApplicationSystemTest {
     @LocalServerPort
     private int port;
 
