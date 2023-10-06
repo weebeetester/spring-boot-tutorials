@@ -1,27 +1,27 @@
 # Build & run tests
 
 ## Build & run unit tests
-mvn clean install
+>mvn clean install
 
 ## Run integration tests
-mvn failsafe:integration-test -PIT
+>mvn failsafe:integration-test -PIT
 
 ## Run system tests
-mvn failsafe:integration-test -PST
+>mvn failsafe:integration-test -PST
 
 ---
 
 # Run local (uses h2)
 ## With MVN
-mvn spring-boot:run -Dspring-boot.run.profiles=local
+>mvn spring-boot:run -Dspring-boot.run.profiles=local
 
 ---
 
 # Run at dev (uses MySQL)
 ## First make sure DB is reachable (start the DB as container)
-docker-compose up
+>docker-compose up
 ## then run the app
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+>mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
 ---
 
@@ -29,4 +29,4 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ## First make sure DB is reachable 
 ### **Adapt application.yml as per your environment
 ## then run the app
-mvn spring-boot:run 
+>mvn spring-boot:run 
