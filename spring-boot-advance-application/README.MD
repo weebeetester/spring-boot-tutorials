@@ -17,23 +17,32 @@ mvn spring-boot:run -Dspring-boot.run.profiles=local
 
 ---
 
-# Run at dev (uses MySQL)
-## First make sure DB is reachable (start the DB as container)
-docker-compose up
-## then run the app
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
-
----
-
-# Run at higher environments (uses MySQL)
-## First make sure DB is reachable 
-### **Adapt application.yml as per your environment
-## then run the app
-mvn spring-boot:run 
+# For other environments, use K8s (uses MySQL 8)
+see devops/kubernetes folder
+>>kubectl apply -f mysql-pv.yml
+>>kubectl apply -f mysql-deployment.yml
+>>kubectl apply -f k8s-configmap.yml
+>>kubectl apply -f k8s-deployment.yml
+>>kubectl apply -f k8s-service.yml
+App will be reachable at http://${MINIKUBE_IP}:${NODEPORT}
 
 ---
 
 # Troubleshooting
+
+## NodePort service not working with minikube on mac
+https://stackoverflow.com/questions/55591468/unable-to-access-a-nodeport-service-on-minikube
+
+### Remove old minikube
+minikube delete
+### Start minikube with hyperkit driver:
+minikube start --memory=4096 --driver=hyperkit
+
+### Run minikube ip. You'll see an output like 192.168.99.100.
+
+### Then, create again the Pods and the service and it should work properly.
+
+
 
 ## List minikube services
 minikube service list
@@ -66,8 +75,6 @@ kubectl get pods
 
 
 
-
-
 ## Check if Mysql setup is ok
 kubectl exec -it mysql-57cc665b4c-jwfkq -- bash
 >mysql -uroot -proot
@@ -89,16 +96,3 @@ root@spring-boot-sample-application-deployment-599b74577d-pmcfw:/application# cu
 * Received HTTP/0.9 when not allowed
 * Closing connection 0
   curl: (1) Received HTTP/0.9 when not allowed
-
-
-## NodePort service not working with minikube on mac
-https://stackoverflow.com/questions/55591468/unable-to-access-a-nodeport-service-on-minikube
-
-### Remove old minikube
-minikube delete
-### Start minikube with virtualbox driver:
-minikube start --memory=4096 --driver=hyperkit
-
-### Run minikube ip. You'll see an output like 192.168.99.100.
-
-### Then, create again the Pods and the service and it should work properly.
