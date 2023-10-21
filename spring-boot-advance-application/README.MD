@@ -17,7 +17,10 @@
 
 ---
 
-# For other environments, use K8s (uses MySQL 8)
+# For other environments, uses K8s (uses MySQL 8)
+**Make sure the cluster is running
+>minikube start --memory=4096 --driver=hyperkit
+
 see devops/kubernetes folder
 >kubectl apply -f mysql-pv.yml
 
