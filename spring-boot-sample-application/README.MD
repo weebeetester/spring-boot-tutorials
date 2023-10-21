@@ -17,16 +17,10 @@
 
 ---
 
-# Run at dev (uses MySQL)
-## First make sure DB is reachable (start the DB as container)
->docker-compose up
-## then run the app
->mvn spring-boot:run -Dspring-boot.run.profiles=dev
-
----
-
 # Run at higher environments (uses MySQL)
-## First make sure DB is reachable 
+## First make sure DB is reachable
+### To try out, you can run the DB in container:
+>docker-compose up
 ### **Adapt application.yml as per your environment
 ## then run the app
 >mvn spring-boot:run 

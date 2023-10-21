@@ -15,7 +15,9 @@
 ## With MVN
 >mvn spring-boot:run -Dspring-boot.run.profiles=local
 
-## With Docker
+---
+
+## Run as container
 ### Build container with docker
 >docker build --tag=sample-boot-app:latest .
 

@@ -1,11 +1,11 @@
+# DB is running in container
 spring:
-  datasource: #For dev, we are using MySQL.
-    #url: jdbc:mysql://localhost:3306/example_db?createDatabaseIfNotExist=true
-    url: jdbc:mysql://db:3306/example_db?createDatabaseIfNotExist=true #to work with compose
+  datasource:
+    url: jdbc:mysql://db:3306/example_db?createDatabaseIfNotExist=true #db ref from compose
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa: #For dev, we are using MySQL
+  jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     hibernate:

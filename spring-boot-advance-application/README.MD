@@ -38,7 +38,7 @@ App will be reachable at http://${MINIKUBE_IP}:${NODEPORT}
 ## NodePort service not working with minikube on mac
 https://stackoverflow.com/questions/55591468/unable-to-access-a-nodeport-service-on-minikube
 
-### Remove old minikube
+### Remove old minikube cluster
 >minikube delete
 ### Start minikube with hyperkit driver:
 >minikube start --memory=4096 --driver=hyperkit
