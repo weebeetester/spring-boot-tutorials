@@ -19,6 +19,7 @@
     <revision>1.0.0-SNAPSHOT</revision>
     <java.version>17</java.version>
     <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+    <flyway.version>10.3.0</flyway.version>
   </properties>
       
   <dependencyManagement>
@@ -72,6 +73,11 @@
            </compilerArgs>
           </configuration>
        </plugin>
+       <plugin>
+         <groupId>org.flywaydb</groupId>
+         <artifactId>flyway-maven-plugin</artifactId>
+         <version>${flyway.version}</version>
+       </plugin>
      </plugins>
    </pluginManagement>
 
@@ -79,6 +85,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <version>${flyway.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -151,7 +162,7 @@
   <modules>
     <module>spring-boot-sample-application</module>
     <module>spring-boot-sample-application-dockerized</module>
-    <module>spring-boot-advance-application</module>
+    <module>spring-boot-sample-application-k8s</module>
   </modules>
   
 </project>

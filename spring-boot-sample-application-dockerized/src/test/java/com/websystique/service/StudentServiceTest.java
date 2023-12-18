@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.*;
     - Testing other layers: We can just use plain old JUnit+mock frameworks (@ExtendWith(MockitoExtension.class)) without any Spring support.
  */
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class StudentServiceTest {
 
     @Mock
