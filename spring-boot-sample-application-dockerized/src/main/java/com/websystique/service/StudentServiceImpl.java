@@ -5,10 +5,11 @@ import com.websystique.exception.StudentAlreadyExistException;
 import com.websystique.exception.StudentIdMismatchException;
 import com.websystique.exception.StudentNotFoundException;
 import com.websystique.persistence.entity.StudentEntity;
+import com.websystique.persistence.mapper.StudentMapper;
 import com.websystique.persistence.repo.StudentRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,13 @@ import java.util.stream.StreamSupport;
 @Slf4j
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService{
     @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final StudentMapper studentMapper;
 
     public List<Student> findAll(){
         return StreamSupport.stream(studentRepository.findAll().spliterator(), false).map(this::convertToDto).collect(Collectors.toList());
@@ -59,13 +61,10 @@ public class StudentServiceImpl implements StudentService{
     }
 
     private Student convertToDto(StudentEntity studentEntity){
-        Student student = modelMapper.map(studentEntity, Student.class);
-        return student;
+        return this.studentMapper.mapEntityToModel(studentEntity);
     }
 
     private StudentEntity convertToEntity(Student student){
-        StudentEntity studentEntity = modelMapper.map(student, StudentEntity.class);
-        return studentEntity;
+        return this.studentMapper.mapModelToEntity(student);
     }
-
 }

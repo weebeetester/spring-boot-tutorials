@@ -5,6 +5,7 @@ import com.websystique.exception.StudentAlreadyExistException;
 import com.websystique.exception.StudentIdMismatchException;
 import com.websystique.exception.StudentNotFoundException;
 import com.websystique.persistence.entity.StudentEntity;
+import com.websystique.persistence.mapper.StudentMapper;
 import com.websystique.persistence.repo.StudentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class StudentServiceTest {
     @Mock
     private StudentRepository studentRepository;
     @Mock
-    private ModelMapper modelMapper;
+    private StudentMapper studentMapper;
     @InjectMocks
     private StudentServiceImpl studentService;
 
@@ -53,9 +53,9 @@ public class StudentServiceTest {
 
         when(studentRepository.findAll()).thenReturn(studentEntities);
 
-        when(modelMapper.map(studentEntities.get(0), Student.class)).thenReturn(students.get(0));
-        when(modelMapper.map(studentEntities.get(1), Student.class)).thenReturn(students.get(1));
-        when(modelMapper.map(studentEntities.get(2), Student.class)).thenReturn(students.get(2));
+        when(studentMapper.mapEntityToModel(studentEntities.get(0))).thenReturn(students.get(0));
+        when(studentMapper.mapEntityToModel(studentEntities.get(1))).thenReturn(students.get(1));
+        when(studentMapper.mapEntityToModel(studentEntities.get(2))).thenReturn(students.get(2));
 
         List<Student> allStudents = studentService.findAll();
         assertThat(allStudents).hasSize(3);
@@ -76,7 +76,7 @@ public class StudentServiceTest {
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(studentEntities.get(0)));
 
-        when(modelMapper.map(studentEntities.get(0), Student.class)).thenReturn(students.get(0));
+        when(studentMapper.mapEntityToModel(studentEntities.get(0))).thenReturn(students.get(0));
 
         Student s = studentService.findById(1L);
         assertThat(s.getId()).isEqualTo(1L);
@@ -98,7 +98,7 @@ public class StudentServiceTest {
 
         when(studentRepository.findByName("Sam")).thenReturn(List.of(studentEntities.get(0)));
 
-        when(modelMapper.map(studentEntities.get(0), Student.class)).thenReturn(students.get(0));
+        when(studentMapper.mapEntityToModel(studentEntities.get(0))).thenReturn(students.get(0));
 
         List<Student> allStudents = studentService.findByName("Sam");
         assertThat(allStudents).hasSize(1);
@@ -111,8 +111,9 @@ public class StudentServiceTest {
         Student student = Student.builder().name("Sam").major("Maths").build();
 
         when(studentRepository.save(any(StudentEntity.class))).thenReturn(studentEntity);
-        when(modelMapper.map(student, StudentEntity.class)).thenReturn(studentEntity);
-        when(modelMapper.map(studentEntity, Student.class)).thenReturn(student);
+
+        when(studentMapper.mapModelToEntity(student)).thenReturn(studentEntity);
+        when(studentMapper.mapEntityToModel(studentEntity)).thenReturn(student);
 
         Student savedStudent = studentService.create(student);
         assertThat(savedStudent.getName()).isEqualTo("Sam");
@@ -134,8 +135,10 @@ public class StudentServiceTest {
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(studentEntity));
         when(studentRepository.save(any(StudentEntity.class))).thenReturn(studentEntity);
-        when(modelMapper.map(student, StudentEntity.class)).thenReturn(studentEntity);
-        when(modelMapper.map(studentEntity, Student.class)).thenReturn(student);
+
+
+        when(studentMapper.mapModelToEntity(student)).thenReturn(studentEntity);
+        when(studentMapper.mapEntityToModel(studentEntity)).thenReturn(student);
 
         Student savedStudent = studentService.update(student, 1L);
         assertThat(savedStudent.getName()).isEqualTo("Sam");
