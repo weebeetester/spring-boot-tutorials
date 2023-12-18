@@ -22,10 +22,9 @@ import java.util.stream.StreamSupport;
 @Transactional
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService{
-    @Autowired
+
     private final StudentRepository studentRepository;
 
-    @Autowired
     private final StudentMapper studentMapper;
 
     public List<Student> findAll(){
