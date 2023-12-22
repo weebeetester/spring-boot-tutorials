@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class SpringBootSampleApplication {
+public class SpringBootSampleApplicationWithK8S {
     public static void main(String[] args){
-        SpringApplication.run(SpringBootSampleApplication.class, args);
+        SpringApplication.run(SpringBootSampleApplicationWithK8S.class, args);
     }
 }

@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class SpringBootAdvanceApplication {
+public class SpringBootSampleApplicationDockerized {
     public static void main(String[] args){
-        SpringApplication.run(SpringBootAdvanceApplication.class, args);
+        SpringApplication.run(SpringBootSampleApplicationDockerized.class, args);
     }
 }
