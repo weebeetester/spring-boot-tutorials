@@ -153,6 +153,7 @@
     <module>spring-boot-sample-application</module>
     <module>spring-boot-sample-application-dockerized</module>
     <module>spring-boot-sample-application-k8s</module>
+    <module>spring-boot-basic-app</module>
   </modules>
   
 </project>
