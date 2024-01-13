@@ -58,9 +58,9 @@ public class StudentControllerTest {//This only test controller layer, without s
     public void whenGetStudents_thenReturnJsonArray() throws Exception{
 
         List<StudentResponseDto> students = List.of(
-                StudentResponseDto.builder().name("Sam").major("Maths").build(),
-                StudentResponseDto.builder().name("Tim").major("Physics").build(),
-                StudentResponseDto.builder().name("Mat").major("English").build());
+                StudentResponseDto.builder().name("Sam").email("sam@hotmail.com").major("Maths").build(),
+                StudentResponseDto.builder().name("Tim").email("tim@hotmail.com").major("Physics").build(),
+                StudentResponseDto.builder().name("Mat").email("mat@hotmail.com").major("English").build());
 
         when(studentService.findAll()).thenReturn(students);
 
@@ -75,10 +75,29 @@ public class StudentControllerTest {//This only test controller layer, without s
         verify(studentService, VerificationModeFactory.times(1)).findAll();
     }
 
+
+    @Test
+    public void whenGetStudentsByName_thenReturnJsonArray() throws Exception{
+
+        List<StudentResponseDto> students = List.of(
+                StudentResponseDto.builder().name("Sam").email("sam@hotmail.com").major("Maths").build());
+
+        when(studentService.findByName("Sam")).thenReturn(students);
+
+        this.mockMvc.perform(get("/api/students").param("name", "Sam").contentType(MediaType.APPLICATION_JSON))
+                //.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].name", is("Sam")));
+
+        verify(studentService, VerificationModeFactory.times(1)).findByName("Sam");
+
+    }
+
     @Test
     public void whenGetStudentsById_thenReturnStudent() throws Exception{
 
-        StudentResponseDto sam = StudentResponseDto.builder().id(1L).name("Sam").major("Maths").build();
+        StudentResponseDto sam = StudentResponseDto.builder().id(1L).name("Sam").email("sam@hotmail.com").major("Maths").build();
 
         when(studentService.findById(1L)).thenReturn(sam);
 
@@ -90,28 +109,10 @@ public class StudentControllerTest {//This only test controller layer, without s
     }
 
     @Test
-    public void whenGetStudentsByName_thenReturnJsonArray() throws Exception{
-
-        List<StudentResponseDto> students = List.of(
-                StudentResponseDto.builder().id(1L).name("Sam").major("Maths").build(),
-                StudentResponseDto.builder().id(2L).name("Tim").major("Physics").build(),
-                StudentResponseDto.builder().id(3L).name("Mat").major("English").build());
-
-        when(studentService.findByName("Sam")).thenReturn(List.of(students.get(0)));
-
-        this.mockMvc.perform(get("/api/students/name/{name}", "Sam").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is("Sam")));
-
-        verify(studentService, VerificationModeFactory.times(1)).findByName("Sam");
-    }
-
-    @Test
     public void whenPostStudent_thenCreateStudent() throws Exception {
 
-        StudentCreationDto sam = StudentCreationDto.builder().name("Sam").major("Maths").build();
-        StudentResponseDto samResponse = StudentResponseDto.builder().name("Sam").major("Maths").build();
+        StudentCreationDto sam = StudentCreationDto.builder().name("Sam").email("sam@hotmail.com").major("Maths").build();
+        StudentResponseDto samResponse = StudentResponseDto.builder().name("Sam").email("sam@hotmail.com").major("Maths").build();
         when(studentService.create(Mockito.any(StudentCreationDto.class))).thenReturn(samResponse);
 
         this.mockMvc.perform(post("/api/students").contentType(MediaType.APPLICATION_JSON).content(toJson(sam)))
@@ -124,7 +125,7 @@ public class StudentControllerTest {//This only test controller layer, without s
     @Test
     public void whenPutStudent_thenUpdateStudent() throws Exception {
 
-        StudentUpdationDto sam = StudentUpdationDto.builder().name("Sam").major("Maths").build();
+        StudentUpdationDto sam = StudentUpdationDto.builder().name("Sam").email("sam@hotmail.com").major("Maths").build();
         StudentResponseDto samResponse = StudentResponseDto.builder().name("Sam").major("Maths").build();
 
 

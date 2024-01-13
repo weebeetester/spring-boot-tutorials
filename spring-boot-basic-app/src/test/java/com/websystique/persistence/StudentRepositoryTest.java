@@ -52,14 +52,17 @@ public class StudentRepositoryTest {
 
         assertThat(students.get(0).getId()).isEqualTo(1L);
         assertThat(students.get(0).getName()).isEqualTo("Sam");
+        assertThat(students.get(0).getEmail()).isEqualTo("sam@hotmail.com");
         assertThat(students.get(0).getMajor()).isEqualTo("Maths");
 
         assertThat(students.get(1).getId()).isEqualTo(2L);
         assertThat(students.get(1).getName()).isEqualTo("Tim");
+        assertThat(students.get(1).getEmail()).isEqualTo("tim@hotmail.com");
         assertThat(students.get(1).getMajor()).isEqualTo("Physics");
 
         assertThat(students.get(2).getId()).isEqualTo(3L);
         assertThat(students.get(2).getName()).isEqualTo("Mat");
+        assertThat(students.get(2).getEmail()).isEqualTo("mat@hotmail.com");
         assertThat(students.get(2).getMajor()).isEqualTo("English");
     }
 
@@ -69,6 +72,7 @@ public class StudentRepositoryTest {
         assertThat(student).isPresent();
 
         assertThat(student.get().getName()).isEqualTo("Sam");
+        assertThat(student.get().getEmail()).isEqualTo("sam@hotmail.com");
         assertThat(student.get().getMajor()).isEqualTo("Maths");
     }
 
@@ -80,12 +84,13 @@ public class StudentRepositoryTest {
 
         assertThat(students.get(0).getId()).isEqualTo(1L);
         assertThat(students.get(0).getName()).isEqualTo("Sam");
+        assertThat(students.get(0).getEmail()).isEqualTo("sam@hotmail.com");
         assertThat(students.get(0).getMajor()).isEqualTo("Maths");
     }
 
     @Test
     public void whenPostStudent_thenCreateStudent() {
-        Student student = Student.builder().name("Hans").major("Chemistry").build();
+        Student student = Student.builder().name("Hans").email("hans@hotmail.com").major("Chemistry").build();
         studentRepository.save(student);
         assertThat(studentRepository.findById(student.getId())).isPresent();
         assertThat(student.getId()).isEqualTo(4L);
@@ -95,7 +100,7 @@ public class StudentRepositoryTest {
 
     @Test
     public void whenPutStudent_thenUpdateStudent() {
-        Student student = Student.builder().id(1L).name("Mat").major("Crypto").build();
+        Student student = Student.builder().id(3L).name("Mat").email("mat@hotmail.com").major("Crypto").build();
         studentRepository.save(student);
         assertThat(studentRepository.findById(student.getId())).isPresent();
         assertThat(studentRepository.findById(student.getId()).get().getMajor()).isEqualTo("Crypto");

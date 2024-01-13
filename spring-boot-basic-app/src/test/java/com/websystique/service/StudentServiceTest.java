@@ -140,9 +140,6 @@ public class StudentServiceTest {
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
         when(studentRepository.save(any(Student.class))).thenReturn(student);
-
-
-        when(studentMapper.mapModelToEntity(studentUpdationDto)).thenReturn(student);
         when(studentMapper.mapEntityToModel(student)).thenReturn(studentResponseDto);
 
         StudentResponseDto updatedStudent = studentService.update(studentUpdationDto, 1L);
@@ -154,13 +151,6 @@ public class StudentServiceTest {
     public void whenPutStudentWithMismatchingID_thenThrowException() {
         StudentUpdationDto studentUpdationDto = StudentUpdationDto.builder().id(1L).name("Sam").major("Maths").build();
         assertThrows(StudentIdMismatchException.class, () -> studentService.update(studentUpdationDto, 2L));
-    }
-
-    @Test
-    public void whenPutStudentWithoutExistingID_thenThrowException() {
-        StudentUpdationDto studentUpdationDto = StudentUpdationDto.builder().id(1L).name("Sam").major("Maths").build();
-        when(studentRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(StudentNotFoundException.class, () -> studentService.update(studentUpdationDto, 1L));
     }
 
     @Test

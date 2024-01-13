@@ -59,33 +59,38 @@ public class SpringBootBasicAppIntegrationTest {
         this.mockMvc.perform(get("/api/students/{id}", 1).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name", is("Sam")));
+                .andExpect(jsonPath("$.name", is("Sam")))
+                .andExpect(jsonPath("$.email", is("sam@hotmail.com")))
+                .andExpect(jsonPath("$.major", is("Maths")));
     }
 
     @Test
     public void whenGetStudentsByName_thenReturnJsonArray() throws Exception{
 
-        this.mockMvc.perform(get("/api/students/name/{name}", "Sam").contentType(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/api/students").param("name", "Sam" ).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is("Sam")));
-
+                .andExpect(jsonPath("$[0].name", is("Sam")))
+                .andExpect(jsonPath("$[0].email", is("sam@hotmail.com")))
+                .andExpect(jsonPath("$[0].major", is("Maths")));
     }
 
     @Test
     public void whenPostStudent_thenCreateStudent() throws Exception {
 
-        StudentCreationDto sam = StudentCreationDto.builder().name("Sam").major("Maths").build();
-        this.mockMvc.perform(post("/api/students").contentType(MediaType.APPLICATION_JSON).content(toJson(sam)))
+        StudentCreationDto hans = StudentCreationDto.builder().name("Hans").email("hans@hotmail.com").major("Chemistry").build();
+        this.mockMvc.perform(post("/api/students").contentType(MediaType.APPLICATION_JSON).content(toJson(hans)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name", is("Sam")));
+                .andExpect(jsonPath("$.name", is("Hans")))
+                .andExpect(jsonPath("$.email", is("hans@hotmail.com")))
+                .andExpect(jsonPath("$.major", is("Chemistry")));
 
     }
 
     @Test
     public void whenPutStudent_thenUpdateStudent() throws Exception {
 
-        StudentUpdationDto sam = StudentUpdationDto.builder().id(1L).name("Sam").major("Maths").build();
+        StudentUpdationDto sam = StudentUpdationDto.builder().id(1L).name("Sam").email("sam@hotmail.com").major("Maths").build();
         this.mockMvc.perform(put("/api/students/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(toJson(sam)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("Sam")));
