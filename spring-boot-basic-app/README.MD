@@ -54,9 +54,9 @@ integration test your data access layer in isolation.
     (we do not want to test the framework itself). So only test what you explicitly added. Even you may want to skip the inferred methods/queries (findByName e.g.)
      even if they are explicitly added.
 - Best candidate for testing are custom JPQL or native SQL Queries.
-### Testing Other Layers:
- - We [can] use @DataJpaTest (Annotation for a JPA test that focuses only on JPA components).
- - Arguably they might be called as narrow Integration tests (instead of unit tests) as they rely on Spring application context.
+### Testing Other Layers (Service e.g.)
+ - Do not depend on Spring application context (use new when needed without Spring)
+ - Just use JUnit5+Mockito, @ExtendWith(MockitoExtension),@Mock, @InjectMocks, when & assertions
 
 
 # Build & run tests
