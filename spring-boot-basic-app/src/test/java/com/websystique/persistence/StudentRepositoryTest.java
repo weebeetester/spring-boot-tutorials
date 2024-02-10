@@ -12,27 +12,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/*
-    - Testing Controller layer:
-        - We [can] use @WebMvcTest(Annotation that can be used for a Spring MVC test that focuses only on Spring MVC components).
-        - This Autoconfigure annotation only loads beans required for testing the web layer.
-        - Arguably they might be called as narrow Integration tests (instead of unit tests) as they rely on Spring application context.
-    - Testing Data layer:
-        - We [can] use @DataJpaTest (Annotation for a JPA test that focuses only on JPA components).
-        - This Autoconfigure annotation only loads beans required for testing the data layer.
-        - Arguably they might be called as narrow Integration tests (instead of unit tests) as they rely on Spring application context.
-    - Testing other layers:
-        - We [can] just write unit tests with plain old JUnit+mock frameworks (@ExtendWith(MockitoExtension.class))
-          without any Spring/SpringBoot support.
-*/
 
-/*
-    Do not test the framework:
-    - While testing data layer, it is not required to test the inherited methods (from JpaRepository for example) as this will be a waste
-    (we do not want to test the framework itself). So only test what you explicitly added. Even you may want to skip the inferred methods (findByName e.g.)
-     even if they are explicitly added.
-    Best candidate for testing [data layer] are custom JPQL or SQL Queries.
- */
 /*
     Below Hypothetical example just shows that everything is testable (including framework methods).
     In real life scenarios, you will ONLY test the custom JPQL or SQL Queries.

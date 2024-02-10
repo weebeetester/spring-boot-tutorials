@@ -30,23 +30,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/*
-    - Testing Controller layer:
-        - We [can] use @WebMvcTest(Annotation that can be used for a Spring MVC test that focuses only on Spring MVC components).
-        - This Autoconfigure annotation only loads beans required for testing the web layer.
-        - Arguably they might be called as narrow Integration tests (instead of unit tests) as they rely on Spring application context.
-    - Testing Data layer:
-        - We [can] use @DataJpaTest (Annotation for a JPA test that focuses only on JPA components).
-        - This Autoconfigure annotation only loads beans required for testing the data layer.
-        - Arguably they might be called as narrow Integration tests (instead of unit tests) as they rely on Spring application context.
-    - Testing other layers:
-        - We [can] just write unit tests with plain old JUnit+mock frameworks (@ExtendWith(MockitoExtension.class))
-          without any Spring/SpringBoot support.
- */
 @Import(WebSecurityConfig.class)
 @WebMvcTest(StudentController.class)
 @ActiveProfiles("test")
-public class StudentControllerTest {//This only test controller layer, without starting the server
+public class StudentControllerTest {
 
     @MockBean
     private StudentService studentService;
