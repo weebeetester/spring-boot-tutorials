@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-boot-sample-application-deployment
+  name: spring-boot-basic-app-v1
   labels:
-    app: spring-boot-sample-application
+    app: spring-boot-basic-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-boot-sample-application
+      app: spring-boot-basic-app
   template:
     metadata:
       labels:
-        app: spring-boot-sample-application
+        app: spring-boot-basic-app
     spec:
       containers:
-        - name: spring-boot-sample-application
+        - name: spring-boot-basic-app
           image: weebeetester/spring-boot-basic-app:latest
           imagePullPolicy: Never
           ports:

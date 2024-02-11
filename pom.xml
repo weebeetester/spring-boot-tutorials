@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.1</version>
+    <version>3.2.2</version>
   </parent>
     
   <properties>
@@ -154,6 +154,7 @@
     <module>spring-boot-sample-application-dockerized</module>
     <module>spring-boot-sample-application-k8s</module>
     <module>spring-boot-basic-app</module>
+    <module>spring-boot-basic-app-k8s</module>
   </modules>
   
 </project>

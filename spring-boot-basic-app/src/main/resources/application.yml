@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: Sample SpringBoot App
+    name: spring-boot-basic-app
   datasource: #For higher environments, make sure to set the right details as per your environment
     url: jdbc:mysql://localhost:3306/example_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root

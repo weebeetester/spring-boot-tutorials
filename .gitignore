@@ -3,6 +3,9 @@
 ### IntelliJ IDEA ###
 /.idea/
 /*/*.iml/
+/*/*.ipr/
+/*/*.iws/
 *.iml
-
+*.ipr
+*.iws
 .DS_Store
