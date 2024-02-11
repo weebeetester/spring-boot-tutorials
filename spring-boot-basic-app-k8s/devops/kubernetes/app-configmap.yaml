@@ -2,6 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: spring-boot-basic-app
+  namespace: demo
 data:
   application.yml: |-
     spring:
@@ -17,3 +18,9 @@ data:
         hibernate:
           ddl-auto: create-drop
         defer-datasource-initialization: true
+      
+    logging:
+      level:
+        root: INFO
+        com.websystique: INFO
+        org.springframework: WARN

@@ -6,9 +6,3 @@ spring:
     deserialization:
       fail-on-unknown-properties: true
 
-
-logging:
-  level:
-    root: INFO
-    com.websystique: INFO
-    org.springframework: WARN

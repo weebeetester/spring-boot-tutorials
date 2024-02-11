@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spring-boot-basic-app-v1
+  namespace: demo
   labels:
     app: spring-boot-basic-app
 spec:
@@ -14,9 +15,15 @@ spec:
       labels:
         app: spring-boot-basic-app
     spec:
+      serviceAccountName: configmap-reader
       containers:
         - name: spring-boot-basic-app
           image: weebeetester/spring-boot-basic-app:latest
           imagePullPolicy: Never
+          args: [
+            "--spring.cloud.bootstrap.enabled=true",
+            "--spring.cloud.kubernetes.config.name=spring-boot-basic-app",
+            "--spring.cloud.kubernetes.config.namespace=demo"
+          ]
           ports:
             - containerPort: 8080

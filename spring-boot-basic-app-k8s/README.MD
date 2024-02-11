@@ -92,15 +92,20 @@ integration test your data access layer in isolation.
 
 ## Deploy objects
 ### see devops/kubernetes folder
->kubectl apply -f mysql-pv.yml
+>kubectl apply -f ns.yaml
 
->kubectl apply -f mysql-deployment.yml
+>kubectl apply -f serviceaccount.yaml
+>kubectl apply -f role.yaml
+>kubectl apply -f rolebinding.yaml
 
->kubectl apply -f k8s-configmap.yml
+>kubectl apply -f mysql-pv.yaml
+>kubectl apply -f mysql-deployment.yaml
 
->kubectl apply -f k8s-deployment.yml
+>kubectl apply -f app-configmap.yaml
 
->kubectl apply -f k8s-service.yml
+>kubectl apply -f app-deployment.yaml
+
+>kubectl apply -f app-service.yaml
 
 App will be reachable at http://${MINIKUBE_IP}:${NODEPORT}
 
@@ -116,10 +121,11 @@ https://stackoverflow.com/questions/55591468/unable-to-access-a-nodeport-service
 ### Start minikube with hyperkit driver:
 >minikube start --memory=4096 --driver=hyperkit
 
-### Run minikube ip. You'll see an output like 192.168.99.100.
+### Get minikube IP
+>minikube ip
+#### You'll see an output like 192.168.99.100.
 
 ### Then, create again the Pods and the service and it should work properly.
-
 
 
 ## List minikube services
@@ -147,7 +153,7 @@ https://stackoverflow.com/questions/42564058/how-to-use-local-docker-images-with
 >minikube image rm docker.io/weebeetester/sample-spring-boot-app:latest
 
 ### Build image
->docker build -t weebeetester/sample-spring-boot-app:latest .
+>docker build -t weebeetester/spring-boot-basic-app:latest .
 ### Run in minikube
 >kubectl run hello-foo --image=foo:0.0.1 --image-pull-policy=Never
 ### Check that it's running
@@ -160,8 +166,11 @@ https://stackoverflow.com/questions/42564058/how-to-use-local-docker-images-with
 >>>show databases;
 
 ### Or one-liner (without terminal)
->kubectl exec -i mysql-57cc665b4c-jwfkq -- mysql -uroot -proot <<<'select convert_tz(now(), "UTC", "CET")'
+>kubectl -n demo exec -i mysql-57cc665b4c-cp2vz -- mysql -uroot -proot <<<'show databases'
+> kubectl -n demo exec -it mysql-57cc665b4c-cp2vz -- mysql -uroot -proot
 
+ 
+>kubectl -n demo exec -i mysql-57cc665b4c-cp2vz -- mysql -uroot -proot <<<'select convert_tz(now(), "UTC", "CET")'
 ## Test connection from other/app pods in the cluster
 >kubectl exec -it spring-boot-sample-application-deployment-599b74577d-pmcfw -- bash
 >>root@spring-boot-sample-application-deployment-599b74577d-pmcfw:/application# curl -v mysql:3306

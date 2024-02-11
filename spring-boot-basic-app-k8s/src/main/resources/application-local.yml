@@ -16,7 +16,9 @@ spring:
   sql:
     init:
       mode: always
-
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
 
 logging:
   level:
