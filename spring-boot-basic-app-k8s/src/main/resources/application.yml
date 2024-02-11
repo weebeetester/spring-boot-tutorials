@@ -1,0 +1,14 @@
+
+spring:
+  application:
+    name: Sample SpringBoot App
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+
+
+logging:
+  level:
+    root: INFO
+    com.websystique: INFO
+    org.springframework: WARN
