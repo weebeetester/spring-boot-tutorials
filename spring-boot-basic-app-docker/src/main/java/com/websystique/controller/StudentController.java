@@ -5,6 +5,7 @@ import com.websystique.dto.StudentResponseDto;
 import com.websystique.dto.StudentUpdationDto;
 import com.websystique.service.StudentService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/students")
+@RequiredArgsConstructor
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
 
     @GetMapping
     public Iterable<StudentResponseDto> findAll(@RequestParam(required = false) String name){
